@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Scopes Demo</title>
+    <style type="text/css">
+        div {
+            padding: 5px; margin: 5px;
+        }
+    </style>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js"></script>
+</head>
+<body ng-app="ScopeApp">
+<h2>Scope Demo</h2>
+<div ng-controller="ParentController">
+    {{title}}
+    <div ng-controller="ChildController">
+        {{title}}
+        <div ng-controller="GrandchildController1">
+            {{title}}
+        </div>
+        <div ng-controller="GrandchildController2">
+            {{title}}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var app = angular.module('ScopeApp', []);
+    app.controller('ParentController', function($scope){
+        $scope.title = 'I am the parent';
+    });
+    app.controller('ChildController', function($scope){
+        $scope.title = 'I am the child';
+    });
+    app.controller('GrandchildController1', function($scope){
+        $scope.title = 'I am grandchild 1';
+    });
+    app.controller('GrandchildController2', function($scope){
+        $scope.title = 'I am grandchild 2';
+    });
+</script>
+</body>
+</html>
