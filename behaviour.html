@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js"></script>
+</head>
+<body ng-app="VocabularyTeacher">
+<div ng-controller="TranslateController">
+    <h2>Translating words to {{language.name}}</h2>
+    <p>Enter a word in English and click the translate button to get it translated to {{language.name}}</p>
+
+    <form name="translateForm" role="form" novalidate="novalidate">
+        <div class="form-group">
+            <label for="source">Source text</label>
+            <input type="text" ng-model="sourceText" class="form-control"
+                   id="source" name="source" placeholder="Enter text in English"/>
+        </div>
+        <button ng-click="translate(sourceText)" ng-disabled="true">Translate</button>
+        <div class="form-group">
+            <label for="target">{{language.name}} translation</label>
+            <input type="text" ng-model="targetText" class="form-control"
+                   id="target" name="target" ng-focus="gotFocus()" ng-blur="lostFocus()"/>
+        </div>
+        <button ng-click="createCard()">Add Card</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var app = angular.module('VocabularyTeacher', []);
+    app.controller('TranslateController', function($scope){
+        $scope.cards = [];
+        $scope.language = {
+            id: 3,
+            name: 'Spanish'
+        };
+        $scope.createCard = function(){
+            var card = {
+                source: $scope.sourceText,
+                target: $scope.targetText,
+                language: $scope.language.id
+            };
+            $scope.cards.push(card);
+            console.log($scope.cards);
+        }
+    })
+</script>
+</body>
+</html>
